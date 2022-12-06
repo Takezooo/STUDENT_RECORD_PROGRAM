@@ -1,5 +1,6 @@
 import os
 import csv
+import os.path
 
 class Record():
 
@@ -153,13 +154,18 @@ class Record():
             writer.writerows(self.record)
 
     def retrieveRecord(self):
-        with open('students.csv') as file_obj:
-            reader_obj = csv.reader(file_obj)
-            for row in reader_obj:
-                self.record.append(row)
-            if len(self.record) != 0:
-                self.record.pop(0)
-        self.display()
+        if os.path.exists('students.csv'):
+            with open('students.csv') as file_obj:
+                reader_obj = csv.reader(file_obj)
+                for row in reader_obj:
+                    self.record.append(row)
+                if len(self.record) != 0:
+                    self.record.pop(0)
+            self.display()
+        else: 
+            with open('students.csv', 'w',newline = "") as file:
+                w = csv.DictWriter(file, fieldnames=self.student_header)
+                w.writeheader()
 
     def ascendingBubbleSort(self):  
     # Outer loop for traverse the entire list  
