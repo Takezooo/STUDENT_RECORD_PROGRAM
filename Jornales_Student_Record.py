@@ -80,11 +80,12 @@ class Record():
         os.system("pause")
 
     def locate(self, studentName):
+        i = int(0)
         for i in range(len(self.record)):
             if studentName in self.record[i]:
                 return i
         else: 
-            return -i
+            return i-1
 
     def search(self, studentName):
         p = int(self.locate(studentName))
